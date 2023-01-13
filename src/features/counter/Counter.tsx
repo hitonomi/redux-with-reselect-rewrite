@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   decrement,
   increment,
@@ -8,18 +8,28 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice';
-import styles from './Counter.module.css';
+  userNameUpdated,
+  selectUserName,
+  selectWeirdName,
+} from "./counterSlice";
+import styles from "./Counter.module.css";
 
 export function Counter() {
   const count = useAppSelector(selectCount);
+  const name = useAppSelector(selectUserName);
+  const weirdName = useAppSelector(selectWeirdName);
   const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
   const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
+      <p>Name: {name}</p>
+      <p>Name from memoized selector: {weirdName}</p>
+
+      <button onClick={() => dispatch(userNameUpdated())}>Update name</button>
+
       <div className={styles.row}>
         <button
           className={styles.button}
