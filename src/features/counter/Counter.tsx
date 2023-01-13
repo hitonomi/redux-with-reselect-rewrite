@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
@@ -14,9 +14,28 @@ import {
 } from "./counterSlice";
 import styles from "./Counter.module.css";
 
+const ChildWithName = memo(() => {
+  const name = useAppSelector(selectUserName);
+
+  return (
+    <>
+      <p>Name: {name}</p>
+    </>
+  );
+});
+
+const ChildWithWeirdName = memo(() => {
+  const weirdName = useAppSelector(selectWeirdName);
+
+  return (
+    <>
+      <p>Name from memoized selector: {weirdName}</p>
+    </>
+  );
+});
+
 export function Counter() {
   const count = useAppSelector(selectCount);
-  const name = useAppSelector(selectUserName);
   const weirdName = useAppSelector(selectWeirdName);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState("2");
@@ -25,8 +44,8 @@ export function Counter() {
 
   return (
     <div>
-      <p>Name: {name}</p>
-      <p>Name from memoized selector: {weirdName}</p>
+      <ChildWithName />
+      <ChildWithWeirdName />
 
       <button onClick={() => dispatch(userNameUpdated())}>Update name</button>
 
