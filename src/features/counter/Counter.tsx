@@ -25,7 +25,7 @@ const ChildWithName = memo(() => {
 });
 
 const ChildWithWeirdName = memo(() => {
-  const weirdName = useAppSelector(selectWeirdName);
+  const weirdName = useAppSelector(selectWeirdName).newName;
 
   return (
     <>

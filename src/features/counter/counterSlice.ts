@@ -84,7 +84,7 @@ export const selectUserName = (state: RootState) => state.counter.user.name;
 export const selectWeirdName = createSelector(selectUserName, (name) => {
   const newName = name + "b";
 
-  return newName;
+  return { newName };
 });
 
 // We can also write thunks by hand, which may contain both sync and async logic.
